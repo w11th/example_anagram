@@ -9,13 +9,13 @@ module Anagram
       dictionary_words.each do |line|
         word = line.chomp
         signature = Finder.signature_of(word)
-        (@signaures[signature] ||= []) << word
+        (@signatures[signature] ||= []) << word
       end
     end
 
     def lookup(word)
       signature = Finder.signature_of(word)
-      @signature[signature]
+      @signatures[signature]
     end
 
     def self.signature_of(word)
