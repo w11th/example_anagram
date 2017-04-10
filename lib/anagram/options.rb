@@ -14,19 +14,25 @@ module Anagram
     private
 
     def parse(argv)
-      opts.banner = "Usage: anagram [ options ] words..."
+      OptionParser.new do |opts|
+        opts.banner = "Usage: anagram [ options ] words..."
 
-      opts.on("-h", "--help", "Show this message") do
-        puts opts
-        exit
-      end
+        opts.on("-d", "--dict path", String, "Path to dictionary") do |dict|
+          @dictionary = dict
+        end
 
-      begin
-        argv = ["-h"] if argv.empty?
-        opts.parse!(argv)
-      rescue OptionParser::ParseError => e
-        STDERR.puts e.message, "\n", opts
-        exit(-1)
+        opts.on("-h", "--help", "Show this message") do
+          puts opts
+          exit
+        end
+
+        begin
+          argv = ["-h"] if argv.empty?
+          opts.parse!(argv)
+        rescue OptionParser::ParseError => e
+          STDERR.puts e.message, "\n", opts
+          exit(-1)
+        end
       end
     end
   end
